@@ -1,0 +1,24 @@
+#docker-composeのバージョンを指定
+version: '3.8'
+
+# volumes:
+#     #volumeはホストにコピー or 表示させないもの
+#     ##バイナリファイル（node_module）など、OS依存があるもの
+
+#     #node_moduleを入れるvolume
+#     vue-cli-node-volume: 
+
+services:
+    #コンテナ詳細
+    web:
+        container_name: web
+        build: ./docker/web
+        ports:
+            - 8080:8080
+        privileged: true
+        volumes:
+            #コンテナ内の指定ディレクトリをホスト側と同期
+            - ./server:/app:cached
+        tty: true
+        stdin_open: true
+        command: /bin/sh
